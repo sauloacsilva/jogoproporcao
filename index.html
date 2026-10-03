@@ -217,7 +217,7 @@
       <div class="flex items-center gap-2">
         <div class="bg-[#040b14] border-2 border-red-500/60 px-3.5 py-1.5 rounded-xl flex items-center gap-2 font-mono text-xl font-black text-red-400">
           <i class="fa-solid fa-clock animate-pulse text-base"></i>
-          <span id="hud-timer">45:00</span>
+          <span id="hud-timer">20:00</span>
         </div>
         <button onclick="toggleCalculator()" title="Abrir Calculadora (Tecla C)" class="px-3 py-2 bg-[#0c1a2e] hover:bg-[#152a47] border border-cyan-500/50 rounded-xl text-cyan-300 text-sm font-bold flex items-center gap-1.5 transition-all">
           <i class="fa-solid fa-calculator"></i><span class="hidden sm:inline">Calc</span>
@@ -254,7 +254,7 @@
       <p class="text-base md:text-lg text-slate-200 leading-relaxed max-w-2xl mx-auto">
         A estação espacial está em emergência! Quatro portas de contenção foram seladas pelo sistema automatizado.
         Para destrancar cada porta, você precisará resolver <strong class="text-cyan-300">um enigma de proporção por vez</strong>.
-        Você tem <strong class="text-red-400">45 minutos</strong> para salvar a missão!
+        Você tem <strong class="text-red-400">20 minutos</strong> para salvar a missão!
       </p>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-left text-sm">
@@ -1056,8 +1056,9 @@
     }
 
     // ──────────── ESTADO DO JOGO ────────────
+    const TOTAL_TIME = 20 * 60; // 20 minutos
     let level    = 0;
-    let timerSec = 45 * 60;
+    let timerSec = TOTAL_TIME;
     let timerID  = null;
     let hints    = 0;
     let errors   = 0;
@@ -1231,7 +1232,7 @@
           renderTimer();
         } else {
           clearInterval(timerID);
-          alert('⏰ O tempo limite de 45 minutos acabou! O reator entrou em colapso. Tente novamente!');
+          alert('⏰ O tempo limite de 20 minutos acabou! O reator entrou em colapso. Tente novamente!');
           restartGame();
         }
       }, 1000);
@@ -1423,7 +1424,7 @@
       document.getElementById('screen-victory').classList.remove('hidden');
       scrollToTop();
 
-      const spent = 45 * 60 - timerSec;
+      const spent = TOTAL_TIME - timerSec;
       const m = Math.floor(spent / 60);
       const s = spent % 60;
       const fmt = `${m}m ${s}s`;
@@ -1461,7 +1462,7 @@
     }
 
     function restartGame() {
-      timerSec = 45 * 60;
+      timerSec = TOTAL_TIME;
       hints = 0;
       errors = 0;
       level = 0;
